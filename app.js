@@ -25,8 +25,8 @@ function generateRandomNumber(maxValue) {
     - mole disappear
 */
 // Get reference to all DOM elements needed
-const scoreElement = document.getElementById('score');
-const timeElement = document.getElementById('time');
+const scoreElement = document.getElementById('scoreText');
+const timeElement = document.getElementById('timeText');
 const holesElements = document.getElementsByClassName('hole');
 
 // this function get executed when clicking on
@@ -106,13 +106,12 @@ function startGame() {
     game.score = 0;
     // first, set gameOver flag to false
     game.gameOver = false;
-    holesElements[2].classList.remove('start');
-    document.getElementById("gameOver").getElementsByTagName("h2")[0].innerText = " ";
+    document.getElementById("gameOver").querySelector("h2").innerText = " ";
 
     // remove the start class from the first hole
     // and attach whack to the click event
-    holesElements[0].classList.remove('start');
-    holesElements[0].addEventListener('click', whack);
+    holesElements[2].classList.remove('start');
+    holesElements[2].removeEventListener('click', startGame);
 
     // start a timer that update the game time
     const timerId = setInterval(function() {
@@ -124,7 +123,7 @@ function startGame() {
             // JavaScript code to add 'Game Over' to the <h2> element
             
 
-            document.getElementById("gameOver").getElementsByTagName("h2")[0].innerText = "Game Over";
+            document.getElementById("gameOver").querySelector("h2").innerText = "Game Over";
 
 
             clearInterval(timerId);
@@ -172,10 +171,7 @@ function resetGame() {
     // }
     // document.getElementsByClassName('hole').classList.add('start');
 
-    // attach the function whack() to all divs with the class 'hole'
-    for (let i = 0; i < holesElements.length; i++) {
-        holesElements[i].addEventListener('click', whack);
-    }
+
 
     // The first 'hole' should have the class 'start'
     // and when it clicked - it should call start game function
@@ -193,4 +189,10 @@ function resetGame() {
 
     // document.getElementsByClassName('hole').classList.remove('start');
 }
+
+    // attach the function whack() to all divs with the class 'hole'
+    for (let i = 0; i < holesElements.length; i++) {
+        holesElements[i].addEventListener('click', whack);
+    }
+
 resetGame();
